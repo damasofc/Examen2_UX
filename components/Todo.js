@@ -46,7 +46,7 @@ export default class Todo extends React.Component {
           <Text>Todo Taks</Text>
           {this.state.todo.map((it,i) => {
           return (
-            <ListItem key={i} press={() => {this.onPress(i); this.forceUpdate();}} checked={it.checked} detail={it.detail} />
+            <ListItem key={i} press={() => {this.props.onPress(i); this.forceUpdate();}} checked={it.checked} detail={it.detail} />
             )
         }) }
       </ScrollView>

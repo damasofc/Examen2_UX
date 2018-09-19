@@ -18,9 +18,23 @@ var todos = [
   }
 ];
 
+var onPress = (key) => {
+  const arr = todos.slice();
+  arr[key].checked = !arr[key].checked;
+  todos = arr
+}
+
+var createTo = (detail) =>
+  {
+    let arr = todos.slice();
+    arr.push({checked: false,detail: detail});
+    todos = arr;
+  }
+
+
 const TodoStack = createStackNavigator({
   Todo: {
-    screen:() => <Todo todo={todos} />,
+    screen:() => <Todo todo={todos} onPress={onPress} />,
     navigationOptions: ({ navigation }) => ({
       headerLeft: <Icon name="menu" size={30} onPress={ () => navigation.openDrawer() } />,
     })
@@ -29,7 +43,7 @@ const TodoStack = createStackNavigator({
 
 const DoneStack = createStackNavigator({
   Done: {
-    screen: Done,
+    screen:() => <Done todo={todos} onPress={onPress} />,
     navigationOptions: ({ navigation }) => ({
       headerLeft: <Icon name="menu" size={30} onPress={ () => navigation.openDrawer() } />,
     })
@@ -38,7 +52,7 @@ const DoneStack = createStackNavigator({
 
 const NewStack = createStackNavigator({
   New: {
-    screen: Nuevo,
+    screen: () => <Nuevo createTodo={createTo}  />,
     navigationOptions: ({ navigation }) => ({
       headerLeft: <Icon name="menu" size={30} onPress={ () => navigation.openDrawer() } />,
     })
